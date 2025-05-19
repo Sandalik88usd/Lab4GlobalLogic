@@ -1,0 +1,9 @@
+﻿  pch.cpp
+  test.cpp
+C:\Users\sanda\Downloads\Новая папка\vs_mkr_test1\stringProcessor.h(10,34): warning C4114: Множественное использование одного и того же квалификатора типа.
+  (компиляция исходного файла "/test.cpp")
+  
+C:\Users\sanda\Downloads\Новая папка\vs_mkr_test1\stringProcessor.h(20,12): warning C4267: return: преобразование из "size_t" в "const int32_t"; возможна потеря данных
+  (компиляция исходного файла "/test.cpp")
+  
+  test_repos.vcxproj -> C:\Users\sanda\Downloads\Новая папка\vs_mkr_test1\x64\Debug\test_repos.exe

@@ -1,0 +1,3 @@
+C:\Users\sanda\Downloads\Новая папка\vs_mkr_test1\x64\Debug\gtest.pdb
+C:\Users\sanda\Downloads\Новая папка\vs_mkr_test1\x64\Debug\gtest_main.pdb
+C:\Users\sanda\Downloads\Новая папка\vs_mkr_test1\test_repos\x64\Debug\test_rep.A9F5781E.Up2Date
