@@ -4,8 +4,29 @@ pipeline {
     stages {
         stage('Checkout') {
             steps {
-                git credentialsId: 'your-git-credentials', 
-                    url: 'your-repository-url'
+                checkout scm
+            }
+        }
+        
+        stage('Setup') {
+            steps {
+                script {
+                    // Завантажуємо NuGet напряму
+                    bat '''
+                        if not exist "nuget.exe" (
+                            powershell -Command "Invoke-WebRequest -Uri 'https://dist.nuget.org/win-x86-commandline/latest/nuget.exe' -OutFile 'nuget.exe'"
+                        )
+                    '''
+                }
+            }
+        }
+        
+        stage('Restore NuGet Packages') {
+            steps {
+                bat '''
+                    if not exist "packages" mkdir packages
+                    nuget.exe restore test_repos.sln -PackagesDirectory packages
+                '''
             }
         }
         
@@ -17,14 +38,14 @@ pipeline {
         
         stage('Test') {
             steps {
-                bat 'x64\\Debug\\test_repos.exe --gtest_output="xml:x64/Debug/test_report.xml"'
+                bat 'x64\\Debug\\test_repos.exe --gtest_output="xml:test_report.xml"'
             }
         }
     }
     
     post {
         always {
-            publishTestResults testResultsPattern: 'x64/Debug/test_report.xml'
+            junit testResultsPattern: 'test_report.xml', allowEmptyResults: true
         }
     }
 }

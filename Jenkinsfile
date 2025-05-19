@@ -8,12 +8,25 @@ pipeline {
             }
         }
         
-        stage('Restore NuGet Packages') {
+        stage('Setup') {
             steps {
                 script {
-                    // Відновлюємо NuGet пакети
-                    bat 'nuget restore test_repos.sln'
+                    // Завантажуємо NuGet напряму
+                    bat '''
+                        if not exist "nuget.exe" (
+                            powershell -Command "Invoke-WebRequest -Uri 'https://dist.nuget.org/win-x86-commandline/latest/nuget.exe' -OutFile 'nuget.exe'"
+                        )
+                    '''
                 }
+            }
+        }
+        
+        stage('Restore NuGet Packages') {
+            steps {
+                bat '''
+                    if not exist "packages" mkdir packages
+                    nuget.exe restore test_repos.sln -PackagesDirectory packages
+                '''
             }
         }
         
@@ -32,7 +45,7 @@ pipeline {
     
     post {
         always {
-            publishTestResults testResultsPattern: 'test_report.xml'
+            junit testResultsPattern: 'test_report.xml', allowEmptyResults: true
         }
     }
 }
