@@ -1,0 +1,35 @@
+# Visual Studio
+.vs/
+x64/
+Debug/
+Release/
+*.user
+*.suo
+*.userosscache
+*.sln.docstates
+
+# Build results
+[Bb]in/
+[Oo]bj/
+
+# Visual Studio 2015/2017 cache/options directory
+.vs/
+
+# Visual Studio profiler
+*.psess
+*.vsp
+*.vspx
+*.sap
+
+# Test Results
+[Tt]est[Rr]esult*/
+[Bb]uild[Ll]og.*
+
+# NuGet Packages
+*.nupkg
+packages/
+
+# Other
+*.log
+*.tmp
+*.temp

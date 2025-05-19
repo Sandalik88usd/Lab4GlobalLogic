@@ -1,0 +1,30 @@
+pipeline {
+    agent any
+    
+    stages {
+        stage('Checkout') {
+            steps {
+                git credentialsId: 'your-git-credentials', 
+                    url: 'your-repository-url'
+            }
+        }
+        
+        stage('Build') {
+            steps {
+                bat 'msbuild test_repos.sln /p:Configuration=Debug /p:Platform=x64'
+            }
+        }
+        
+        stage('Test') {
+            steps {
+                bat 'x64\\Debug\\test_repos.exe --gtest_output="xml:x64/Debug/test_report.xml"'
+            }
+        }
+    }
+    
+    post {
+        always {
+            publishTestResults testResultsPattern: 'x64/Debug/test_report.xml'
+        }
+    }
+}
